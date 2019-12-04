@@ -211,7 +211,8 @@ class Media extends AbstractModel
         while ($id > 0) {
             $remainder = $id % 64;
             $id = ($id - $remainder) / 64;
-            $code = $alphabet{$remainder} . $code;
+            //$code = $alphabet{$remainder} . $code;    // minseong4556
+            $code = $alphabet[$remainder] . $code;
         };
         return $code;
     }
@@ -554,9 +555,16 @@ class Media extends AbstractModel
                 }
                 break;
             case 'location':
+                /*
+                ** minseong4556
                 $this->locationId = $arr[$prop]['id'];
                 $this->locationName = $arr[$prop]['name'];
                 $this->locationSlug = $arr[$prop]['slug'];
+                */
+                $this->locationId = $arr[$prop]['id'] ?? [];
+                $this->locationName = $arr[$prop]['name'] ?? [];
+                $this->locationSlug = $arr[$prop]['slug'] ?? [];
+                
                 break;
             case 'user':
                 $this->owner = Account::create($arr[$prop]);
